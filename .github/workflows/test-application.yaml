@@ -22,11 +22,30 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - php-version: '8.2'
+                    - php-version: '7.3'
+                      coverage: false
                       dependency-versions: 'lowest'
                       env:
                           SYMFONY_DEPRECATIONS_HELPER: disabled
-                          
+
+                    - php-version: '7.4'
+                      coverage: false
+                      dependency-versions: 'highest'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+                    - php-version: '8.0'
+                      coverage: false
+                      dependency-versions: 'highest'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
+                    - php-version: '8.1'
+                      coverage: true
+                      dependency-versions: 'highest'
+                      env:
+                          SYMFONY_DEPRECATIONS_HELPER: weak
+
                     - php-version: '8.2'
                       coverage: false
                       dependency-versions: 'highest'
@@ -59,6 +78,11 @@ jobs:
                   extensions: ctype, iconv, mysql
                   coverage: pcov
                   tools: 'composer:v2'
+
+            - name: Remove Lint Tools
+              # These tools are not required to run tests, so we are removing them to improve dependency resolving and
+              # testing lowest versions.
+              run: composer remove "*php-cs-fixer*" "*phpstan*" "*rector*" --dev --no-update
 
             - name: Install composer dependencies
               uses: ramsey/composer-install@v2
