@@ -35,15 +35,8 @@ use Sulu\Bundle\TagBundle\Tag\TagInterface;
 /**
  * @internal
  */
-final class MetadataLoader implements EventSubscriber
+final class MetadataLoader
 {
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::loadClassMetadata,
-        ];
-    }
-
     public function loadClassMetadata(LoadClassMetadataEventArgs $event): void
     {
         /** @var ClassMetadataInfo<object> $metadata */

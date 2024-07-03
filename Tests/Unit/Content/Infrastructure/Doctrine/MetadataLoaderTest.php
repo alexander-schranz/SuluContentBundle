@@ -43,15 +43,6 @@ class MetadataLoaderTest extends TestCase
         return new MetadataLoader();
     }
 
-    public function testGetSubscribedEvents(): void
-    {
-        $metadataLoader = $this->getMetadataLoader();
-
-        $this->assertSame([
-            Events::loadClassMetadata,
-        ], $metadataLoader->getSubscribedEvents());
-    }
-
     /**
      * @param string[] $interfaces
      * @param bool[] $fields
